@@ -1,7 +1,7 @@
 pipeline {
     agent any
     tools {
-        maven 'Maven 3' 
+        maven 'MAVEN_HOME' 
     }
 
  
@@ -10,7 +10,7 @@ pipeline {
         stage('Example') {
             steps {
 
-                withMaven(maven: 'Maven 3') {
+                withMaven(maven: 'MAVEN_HOME') {
 
                     bat 'mvn clean test'
                 }
