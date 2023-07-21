@@ -44,6 +44,7 @@ pipeline {
     post {
         always {
             // Clean up or other actions, if required
+            sh 'rm -rf temp-files/' // Clean up temporary files
         }
         
         success {
