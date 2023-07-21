@@ -5,23 +5,21 @@ pipeline {
         stage('Checkout') {
             steps {
                 // Checkout your Selenium UI testing framework code from the Git repository
-                echo 'checkout'
+                git 'https://github.com/Jerry98OnGithub/BenchSelenium_Assignment.git'
             }
         }
         
         stage('Build') {
             steps {
                 // Build your Selenium project using Maven
-                //sh 'mvn clean package' // Assuming your framework uses Maven
-		echo 'build'
+                sh 'mvn clean package' // Assuming your framework uses Maven
             }
         }
         
         stage('Test') {
             steps {
                 // Run your Selenium UI tests using Maven
-               // sh 'mvn test' // Assuming your framework uses Maven to run tests
-		echo 'test'
+                sh 'mvn test' // Assuming your framework uses Maven to run tests
             }
         }
         
