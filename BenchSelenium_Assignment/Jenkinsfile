@@ -1,1 +1,59 @@
-//groovy
+pipeline {
+    agent any
+    
+    stages {
+        stage('Checkout') {
+            steps {
+                // Checkout your Selenium UI testing framework code from the Git repository
+                git 'https://github.com/Jerry98OnGithub/BenchSelenium_Assignment.git'
+            }
+        }
+        
+        stage('Build') {
+            steps {
+                // Build your Selenium project using Maven
+                sh 'mvn clean package' // Assuming your framework uses Maven
+            }
+        }
+        
+        stage('Test') {
+            steps {
+                // Run your Selenium UI tests using Maven
+                sh 'mvn test' // Assuming your framework uses Maven to run tests
+            }
+        }
+        
+        stage('Publish Reports') {
+            steps {
+                // Publish test reports using HTML Publisher plugin
+                publishHTML(target: [
+                    allowMissing: false,
+                    alwaysLinkToLastBuild: true,
+                    keepAll: true,
+                    reportDir: 'target/surefire-reports',
+                    reportFiles: 'index.html',
+                    reportName: 'Test Report'
+                ])
+            }
+        }
+        
+        // Add more stages as per your requirements
+        
+    }
+    
+    post {
+        always {
+            // Clean up or other actions, if required
+        }
+        
+        success {
+            // Actions to perform when the pipeline succeeds
+            echo 'Pipeline succeeded!'
+        }
+        
+        failure {
+            // Actions to perform when the pipeline fails
+            echo 'Pipeline failed!'
+        }
+    }
+}
